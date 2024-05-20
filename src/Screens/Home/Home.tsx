@@ -1,12 +1,18 @@
 import React from "react";
 import { HomeProps } from "./Index";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { Card, MyText } from "@/Components";
 
 const Home = (props: HomeProps) => {
   return (
     <>
       <View>
-        <Text>HOME SCREENS</Text>
+        <Card
+          episode="Pilot"
+          season="1"
+          airDate="2021-07-01"
+          onPress={() => console.debug("click")}
+        />
       </View>
     </>
   );
