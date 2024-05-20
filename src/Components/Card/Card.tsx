@@ -5,12 +5,18 @@ import MyText from "../MyText/MyText";
 import { styles } from "./Card.styles";
 
 const Card = (props: CardProps) => {
-  const { episode, season, airDate } = props;
+  const { episode, season, airDate, onPress } = props;
+
+  const handleOnPress = async () => {
+    if (onPress) {
+      await onPress();
+    }
+  };
 
   return (
     <>
       <View style={styles.body}>
-        <Pressable onPress={() => console.debug("click")}>
+        <Pressable onPress={() => handleOnPress()}>
           <MyText
             text="Episode: "
             size="header"
