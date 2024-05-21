@@ -26,18 +26,11 @@ export const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
   },
-  info: {
-    padding: 10,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    elevation: 10,
-    margin: 6,
-    gap: 6,
-    marginTop: 12,
-  },
   charArea: {
     paddingHorizontal: 8,
     paddingVertical: 16,
+    width: "100%",
+    height: "100%",
   },
   flatListContent: {
     width: "100%",
