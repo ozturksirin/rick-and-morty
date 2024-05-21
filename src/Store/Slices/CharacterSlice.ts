@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import API from "@/Api";
-import { Character } from "../types/Character";
+import { Character, FavoriteCharacter } from "../types/Character";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getCharacter = createAsyncThunk(
   "characters/getCharacter",
@@ -18,11 +19,31 @@ export const getSingleCharacter = createAsyncThunk(
   }
 );
 
+export const getFavoriteCharacter = createAsyncThunk(
+  "characters/getFavoriteCharacter",
+  async () => {
+    try {
+      const favorite = await AsyncStorage.getItem("@FAVORITE_CHARACTERS");
+      if (favorite) {
+        const favoriteData: FavoriteCharacter[] = JSON.parse(favorite);
+        console.log("favoriteData", favoriteData);
+        return favoriteData;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+);
+
 export const characterSlice = createSlice({
   name: "characters",
   initialState: {
     allCharacter: null as Character[] | null,
     singleCharacter: null as Character | null,
+    favoriteCharacter: null as FavoriteCharacter[] | null,
     loading: false as boolean,
     error: undefined as string | undefined,
   },
@@ -61,6 +82,21 @@ export const characterSlice = createSlice({
       }
     );
     builder.addCase(getSingleCharacter.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(getFavoriteCharacter.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      getFavoriteCharacter.fulfilled,
+      (state, action: PayloadAction<FavoriteCharacter[]>) => {
+        state.loading = false;
+        state.favoriteCharacter = action.payload;
+      }
+    );
+    builder.addCase(getFavoriteCharacter.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

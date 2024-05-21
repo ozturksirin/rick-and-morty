@@ -7,6 +7,7 @@ import { styles } from "./Splash.style";
 import { AppDispatch } from "@/Store";
 import { useDispatch } from "react-redux";
 import { getEpisodes } from "@/Store/Slices/EpisodeSlice";
+import { getFavoriteCharacter } from "@/Store/Slices/CharacterSlice";
 
 const Splash = (props: SplashProps) => {
   const { navigation } = props;
@@ -14,8 +15,9 @@ const Splash = (props: SplashProps) => {
 
   const Start = async () => {
     await dispatch(getEpisodes());
+    await dispatch(getFavoriteCharacter());
     setTimeout(() => {
-      navigation.replace("Home");
+      navigation.replace("Main");
     }, 3000);
   };
   useEffect(() => {

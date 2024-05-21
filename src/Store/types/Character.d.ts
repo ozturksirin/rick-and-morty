@@ -22,3 +22,8 @@ export interface Character {
   url: string;
   created: string;
 }
+export interface FavoriteCharacter {
+  id: number;
+  name: string;
+  image: string;
+}

@@ -3,7 +3,10 @@ import { Image, SafeAreaView, View } from "react-native";
 import { styles } from "./CharacterInfo.style";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/Store";
-import { getSingleCharacter } from "@/Store/Slices/CharacterSlice";
+import {
+  getFavoriteCharacter,
+  getSingleCharacter,
+} from "@/Store/Slices/CharacterSlice";
 import { CharacterInfoProps } from "./Index";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MyText } from "@/Components";
@@ -35,7 +38,6 @@ const CharacterInfo = (props: CharacterInfoProps) => {
       const favoriteCharacters = await AsyncStorage.getItem(
         "@FAVORITE_CHARACTERS"
       );
-      console.debug("favoriteCharacters", favoriteCharacters);
       let favoriteCharactersArray = favoriteCharacters
         ? JSON.parse(favoriteCharacters)
         : [];
@@ -54,11 +56,12 @@ const CharacterInfo = (props: CharacterInfoProps) => {
         "@FAVORITE_CHARACTERS",
         JSON.stringify(favoriteCharactersArray)
       );
-      return MyToastShow(
+      MyToastShow(
         "Added to Favorites",
         "This character has been added to favorites",
         false
       );
+      return dispatch(getFavoriteCharacter());
     } catch (error) {
       console.error(error);
       return MyToastShow(
