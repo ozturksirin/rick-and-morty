@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import episodeReducer from "./Slices/EpisodeSlice";
+import characterReducer from "./Slices/CharacterSlice";
 
 export const store = configureStore({
   reducer: {
     episode: episodeReducer,
+    character: characterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

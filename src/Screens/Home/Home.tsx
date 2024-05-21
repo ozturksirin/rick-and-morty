@@ -29,6 +29,7 @@ const Home = (props: HomeProps) => {
                   name: item.name,
                   episode: item.episode,
                   airDate: item.air_date,
+                  characters: item.characters,
                 })
               }
             />
