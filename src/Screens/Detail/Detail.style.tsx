@@ -1,10 +1,7 @@
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import AppTheme from "@/Theme";
 
-const {
-  colors,
-  device: { width, height, winWidth, winHeight },
-} = AppTheme;
+const { colors } = AppTheme;
 
 export const styles = StyleSheet.create({
   body: { flex: 1, paddingTop: "8%", paddingHorizontal: 8 },
@@ -17,30 +14,25 @@ export const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    top: 50,
+    top: 20,
     right: 20,
     zIndex: 1,
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 190,
     borderRadius: 8,
   },
   charArea: {
     paddingHorizontal: 8,
     paddingVertical: 16,
-    width: "100%",
-    height: "100%",
-  },
-  flatListContent: {
-    width: "100%",
-    height: "100%",
   },
   charInfo: {
     justifyContent: "center",
     alignItems: "center",
     width: "34%",
-    height: 180, // chnged later
+    height: 190, // chnged later
+    paddingBottom: 14,
   },
   charImage: {
     width: "90%",

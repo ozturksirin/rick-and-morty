@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import { store } from "@/Store";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -24,6 +25,7 @@ export default function App() {
         <View style={styles.container}>
           <StatusBar style="auto" />
           <Router />
+          <Toast />
         </View>
       </Provider>
     </>

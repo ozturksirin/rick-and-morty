@@ -22,7 +22,6 @@ const Detail = (props: DetailProps) => {
     }
     // Tüm id'leri almak
     const ids = characters.map((char: any) => char.split("/").pop());
-    console.debug("IDs:", ids);
     if (ids.length > 0) {
       ids.forEach((id: number) => {
         if (id) {
@@ -38,47 +37,51 @@ const Detail = (props: DetailProps) => {
 
   return (
     <SafeAreaView style={styles.body}>
-      <MaterialIcons
-        name="arrow-back-ios-new"
-        size={36}
-        onPress={() => navigation.goBack()}
-        color="black"
-        style={styles.icon}
-      />
-      <View style={styles.container}>
-        <Image
-          source={require("@/Assets/Images/season.jpg")}
-          style={styles.image}
-          resizeMode="cover"
+      <View style={{ flex: 0.5 }}>
+        <MaterialIcons
+          name="arrow-back-ios-new"
+          size={36}
+          onPress={() => navigation.goBack()}
+          color="black"
+          style={styles.icon}
         />
+        <View style={styles.container}>
+          <Image
+            source={require("@/Assets/Images/season.jpg")}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        </View>
       </View>
-
-      <View style={styles.charArea}>
-        <MyText text="Characters" size="header" type="bold" />
-        <FlatList
-          data={char}
-          keyExtractor={(item) => item.id.toString()}
-          horizontal={false}
-          showsVerticalScrollIndicator={true}
-          numColumns={3}
-          style={styles.flatListContent}
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.charInfo}
-              onPress={() =>
-                navigation.navigate("CharacterInfo", {
-                  charId: item.id,
-                })
-              }>
-              <Image
-                source={{ uri: item.image }}
-                style={styles.charImage}
-                resizeMode="cover"
-              />
-              <MyText text={item.name} size="text" type="bold" />
-            </Pressable>
-          )}
-        />
+      <View style={{ flex: 1 }}>
+        <View style={styles.charArea}>
+          <MyText text="Characters" size="header" type="bold" />
+          <FlatList
+            data={char}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={false}
+            showsVerticalScrollIndicator={true}
+            numColumns={3}
+            renderItem={({ item }) => (
+              <Pressable
+                style={styles.charInfo}
+                onPress={() =>
+                  navigation.navigate("CharacterInfo", {
+                    charId: item.id,
+                  })
+                }>
+                <Image
+                  source={{ uri: item.image }}
+                  style={styles.charImage}
+                  resizeMode="cover"
+                />
+                <MyText text={item?.name} size="text" type="bold" />
+                <MyText text={item?.status} size="text" type="regular" />
+                <MyText text={item?.species} size="small" type="regular" />
+              </Pressable>
+            )}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
