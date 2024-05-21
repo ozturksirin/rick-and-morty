@@ -8,6 +8,11 @@ export type HomeProps = {
 export type RootStackParamList = {
   Home: undefined;
   Detail:
-    | { id: number; name: string; episode: string; airDate: string }
+    | {
+        name: string;
+        episode: string;
+        airDate: string;
+        characters: string[];
+      }
     | undefined;
 };
