@@ -26,31 +26,30 @@ const fontType = {
 };
 
 const AppTheme = {
+  defaultOpacity: 0.9,
   device: {
     width,
     height,
     winWidth,
     winHeight,
   },
-  defaultOpacity: 0.9,
   font: {
     types: fontType[OS],
     size: {
-      header: 20,
+      header: 22,
       subheader: 18,
       text: 16,
       error: 10,
-      medium: 24,
+      medium: 18,
       large: 32,
       extraLarge: 48,
     },
   },
   colors: {
     button: {
-      light: "#1F02FB",
-      dark: "#1F02FB",
-      regular: "#1F02FB",
-      transparentRGB: "rgba(171, 170, 249, 0.3)",
+      light: "",
+      dark: "",
+      regular: "",
     },
     error: "#FF3333",
     white: "#FFFFFF",

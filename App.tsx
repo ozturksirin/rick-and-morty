@@ -33,6 +33,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 8,
+    // paddingHorizontal: 8,
   },
 });
