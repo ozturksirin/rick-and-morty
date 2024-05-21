@@ -14,7 +14,7 @@ const Detail = (props: DetailProps) => {
   // console.debug("characters", characters);
 
   const char = useSelector((state: RootState) => state.character.allCharacter);
-  console.debug("char", char);
+  // console.debug("char", char);
 
   const handleCharacter = async () => {
     if (char) {
@@ -40,7 +40,7 @@ const Detail = (props: DetailProps) => {
     <SafeAreaView style={styles.body}>
       <MaterialIcons
         name="arrow-back-ios-new"
-        size={34}
+        size={36}
         onPress={() => navigation.goBack()}
         color="black"
         style={styles.icon}
@@ -52,38 +52,7 @@ const Detail = (props: DetailProps) => {
           resizeMode="cover"
         />
       </View>
-      <View style={styles.info}>
-        <MyText
-          text="Epsisode Name: "
-          size="header"
-          type="bold"
-          multiText={{
-            text: name,
-            size: "medium",
-            type: "regular",
-          }}
-        />
-        <MyText
-          text="Episode: "
-          size="header"
-          type="bold"
-          multiText={{
-            text: episode,
-            size: "medium",
-            type: "regular",
-          }}
-        />
-        <MyText
-          text="Air Date: "
-          size="header"
-          type="bold"
-          multiText={{
-            text: airDate,
-            size: "medium",
-            type: "regular",
-          }}
-        />
-      </View>
+
       <View style={styles.charArea}>
         <MyText text="Characters" size="header" type="bold" />
         <FlatList
@@ -96,8 +65,11 @@ const Detail = (props: DetailProps) => {
           renderItem={({ item }) => (
             <Pressable
               style={styles.charInfo}
-              // onPress={() => navigation.navigate("CharakterInfo", {})}
-            >
+              onPress={() =>
+                navigation.navigate("CharacterInfo", {
+                  charId: item.id,
+                })
+              }>
               <Image
                 source={{ uri: item.image }}
                 style={styles.charImage}
