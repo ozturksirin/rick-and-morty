@@ -1,13 +1,14 @@
 import React from "react";
 import { HomeProps } from "./Index";
 import { FlatList, SafeAreaView, View } from "react-native";
-import { Card } from "@/Components";
+import { Card, MyInput } from "@/Components";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store";
 
 const Home = (props: HomeProps) => {
   const { navigation } = props;
   const episodes = useSelector((state: RootState) => state.episode.episodes);
+  const [search, setSearch] = React.useState("");
 
   return (
     <>
@@ -16,6 +17,14 @@ const Home = (props: HomeProps) => {
           paddingTop: "8%",
           paddingHorizontal: 8,
         }}>
+        <MyInput
+          isSearch={true}
+          placeholder="Episode Name"
+          value={search}
+          handleChange={(text) => {
+            setSearch(text);
+          }}
+        />
         <FlatList
           data={episodes?.results}
           renderItem={({ item }) => (

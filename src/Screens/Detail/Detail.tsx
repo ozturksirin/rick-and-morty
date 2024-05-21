@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { MyText } from "@/Components";
+import { MyInput, MyText } from "@/Components";
 import { FlatList, Image, Pressable, SafeAreaView, View } from "react-native";
 import { DetailProps } from "./Index";
 import { styles } from "./Detail.style";
@@ -35,6 +35,8 @@ const Detail = (props: DetailProps) => {
     handleCharacter();
   }, [dispatch, characters]);
 
+  const [search, setSearch] = React.useState("");
+
   return (
     <SafeAreaView style={styles.body}>
       <View style={{ flex: 0.5 }}>
@@ -52,6 +54,14 @@ const Detail = (props: DetailProps) => {
             resizeMode="cover"
           />
         </View>
+        <MyInput
+          value={search}
+          handleChange={() => {
+            setSearch(search);
+          }}
+          placeholder="Character Name"
+          isSearch={true}
+        />
       </View>
       <View style={{ flex: 1 }}>
         <View style={styles.charArea}>
