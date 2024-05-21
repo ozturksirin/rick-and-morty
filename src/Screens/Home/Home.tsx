@@ -1,28 +1,41 @@
 import React from "react";
 import { HomeProps } from "./Index";
-import { View } from "react-native";
-import { Card, MyText } from "@/Components";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/Store";
-import { getEpisodes } from "@/Store/Slices/EpisodeSlice";
+import { FlatList, SafeAreaView, View } from "react-native";
+import { Card } from "@/Components";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Store";
 
 const Home = (props: HomeProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const fetchEpisodes = () => {
-    dispatch(getEpisodes());
-  };
+  const { navigation } = props;
+  const episodes = useSelector((state: RootState) => state.episode.episodes);
 
   return (
     <>
-      <View>
-        <Card
-          episode="Pilot"
-          season="1"
-          airDate="2021-07-01"
-          onPress={() => fetchEpisodes()}
+      <SafeAreaView
+        style={{
+          paddingTop: "8%",
+          paddingHorizontal: 8,
+        }}>
+        <FlatList
+          data={episodes?.results}
+          renderItem={({ item }) => (
+            <Card
+              episode={item.name}
+              season={item.episode}
+              airDate={item.air_date}
+              onPress={() =>
+                navigation.navigate("Detail", {
+                  id: item.id,
+                  name: item.name,
+                  episode: item.episode,
+                  airDate: item.air_date,
+                })
+              }
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
         />
-      </View>
+      </SafeAreaView>
     </>
   );
 };

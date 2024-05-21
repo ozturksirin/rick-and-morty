@@ -4,11 +4,16 @@ import { View } from "react-native";
 import { MyText } from "@/Components";
 import LottieView from "lottie-react-native";
 import { styles } from "./Splash.style";
+import { AppDispatch } from "@/Store";
+import { useDispatch } from "react-redux";
+import { getEpisodes } from "@/Store/Slices/EpisodeSlice";
 
 const Splash = (props: SplashProps) => {
   const { navigation } = props;
+  const dispatch = useDispatch<AppDispatch>();
 
-  const Start = () => {
+  const Start = async () => {
+    await dispatch(getEpisodes());
     setTimeout(() => {
       navigation.replace("Home");
     }, 3000);

@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../index";
 import { Episodes } from "../types/Episode";
 import API from "@/Api";
 
 export const getEpisodes = createAsyncThunk("episode/getEpisodes", async () => {
-  const response = await API.GET<Episodes | null>("/episode");
-  console.log("response", response.data);
+  const response = await API.GET<Episodes | null>(`/episode`);
   return response.data;
 });
 
@@ -16,11 +14,7 @@ export const episodeSlice = createSlice({
     loading: false as boolean,
     error: undefined as string | undefined,
   },
-  reducers: {
-    setEpisodes: (state, action) => {
-      state.episodes = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getEpisodes.pending, (state) => {
       state.loading = true;

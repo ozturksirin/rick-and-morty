@@ -6,8 +6,8 @@ export interface Episodes {
 export interface Info {
   count: number;
   pages: number;
-  next: string;
-  prev: any;
+  next: string | null;
+  prev: string | null;
 }
 
 export interface Result {
