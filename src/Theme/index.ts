@@ -43,6 +43,7 @@ const AppTheme = {
       medium: 18,
       large: 32,
       extraLarge: 48,
+      small: 12,
     },
   },
   colors: {
