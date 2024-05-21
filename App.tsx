@@ -3,6 +3,8 @@ import Router from "@/Router/Router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import { store } from "@/Store";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -18,10 +20,12 @@ export default function App() {
   }
   return (
     <>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <Router />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+          <Router />
+        </View>
+      </Provider>
     </>
   );
 }
