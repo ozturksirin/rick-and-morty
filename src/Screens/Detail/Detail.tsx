@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
-import { MyText } from "@/Components";
-import { FlatList, Image, Pressable, SafeAreaView, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { MyInput, MyText } from "@/Components";
+import {
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  View,
+} from "react-native";
 import { DetailProps } from "./Index";
 import { styles } from "./Detail.style";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -11,16 +19,14 @@ const Detail = (props: DetailProps) => {
   const { route, navigation } = props;
   const { episode, name, airDate, characters } = route.params;
   const dispatch = useDispatch<AppDispatch>();
-  // console.debug("characters", characters);
+  const [search, setSearch] = useState("");
 
   const char = useSelector((state: RootState) => state.character.allCharacter);
-  // console.debug("char", char);
 
   const handleCharacter = async () => {
     if (char) {
       await dispatch(setAllCharacter());
     }
-    // Tüm id'leri almak
     const ids = characters.map((char: any) => char.split("/").pop());
     if (ids.length > 0) {
       ids.forEach((id: number) => {
@@ -35,29 +41,57 @@ const Detail = (props: DetailProps) => {
     handleCharacter();
   }, [dispatch, characters]);
 
+  const handleFilter = () => {
+    if (search === "") {
+      return char;
+    }
+    if (char === null) {
+      console.log("char is not found");
+      return [];
+    }
+
+    return char.filter((item) => {
+      return item.name.toLowerCase().includes(search.toLowerCase());
+    });
+  };
+
   return (
     <SafeAreaView style={styles.body}>
-      <View style={{ flex: 0.5 }}>
-        <MaterialIcons
-          name="arrow-back-ios-new"
-          size={36}
-          onPress={() => navigation.goBack()}
-          color="black"
-          style={styles.icon}
-        />
-        <View style={styles.container}>
-          <Image
-            source={require("@/Assets/Images/season.jpg")}
-            style={styles.image}
-            resizeMode="cover"
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{
+          flex: 1,
+        }}>
+        <View style={{ flex: 1 }}>
+          <MaterialIcons
+            name="arrow-back-ios-new"
+            size={36}
+            onPress={() => navigation.goBack()}
+            color="black"
+            style={styles.icon}
+          />
+          <View style={styles.container}>
+            <Image
+              source={require("@/Assets/Images/season.jpg")}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
+
+          <MyInput
+            onChange={handleFilter}
+            isSearch={true}
+            placeholder="Character Name"
+            value={search}
+            handleChange={(text) => {
+              setSearch(text);
+            }}
           />
         </View>
-      </View>
-      <View style={{ flex: 1 }}>
         <View style={styles.charArea}>
           <MyText text="Characters" size="header" type="bold" />
           <FlatList
-            data={char}
+            data={handleFilter()}
             keyExtractor={(item) => item.id.toString()}
             horizontal={false}
             showsVerticalScrollIndicator={true}
@@ -82,7 +116,7 @@ const Detail = (props: DetailProps) => {
             )}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

@@ -4,7 +4,11 @@ import AppTheme from "@/Theme";
 const { colors } = AppTheme;
 
 export const styles = StyleSheet.create({
-  body: { flex: 1, paddingTop: "8%", paddingHorizontal: 8 },
+  body: {
+    flex: 1,
+    paddingTop: "8%",
+    paddingHorizontal: 8,
+  },
   container: {
     backgroundColor: colors.white,
     borderRadius: 10,
@@ -25,14 +29,14 @@ export const styles = StyleSheet.create({
   },
   charArea: {
     paddingHorizontal: 8,
-    paddingVertical: 16,
+    flex: 2,
   },
   charInfo: {
     justifyContent: "center",
     alignItems: "center",
     width: "34%",
-    height: 190, // chnged later
-    paddingBottom: 14,
+    height: 190,
+    // paddingBottom: 14,
   },
   charImage: {
     width: "90%",
