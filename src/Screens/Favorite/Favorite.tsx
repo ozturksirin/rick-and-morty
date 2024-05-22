@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { FlatList, Image, SafeAreaView, View } from "react-native";
-import { FavoriteCharacter, FavoriteProps } from "./Index";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert, FlatList, Image, SafeAreaView, View } from "react-native";
+import { FavoriteProps } from "./Index";
 import { MyToastShow } from "@/Utils";
 import { MyText } from "@/Components";
 import { styles } from "./Favorite.style";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/Store";
 import { getFavoriteCharacter } from "@/Store/Slices/CharacterSlice";
+import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Favorite = (props: FavoriteProps) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,29 +16,52 @@ const Favorite = (props: FavoriteProps) => {
     (state: RootState) => state.character.favoriteCharacter
   );
 
-  // const handleGetFavorite = async () => {
-  //   try {
-  //     const favorite = await AsyncStorage.getItem("@FAVORITE_CHARACTERS");
-  //     if (favorite) {
-  //       const favoriteData: FavoriteCharacter[] = JSON.parse(favorite);
-  //       setFavoriteCharacters(favoriteData);
-  //     } else {
-  //       MyToastShow("No favorite characters found", "warning");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleGetFavorite = async () => {
     try {
       await dispatch(getFavoriteCharacter());
-    } catch (error) {}
+    } catch (error) {
+      return MyToastShow("error", "Failed to get favorite characters");
+    }
   };
 
   useEffect(() => {
     handleGetFavorite();
   }, [dispatch]);
+
+  const handleRemoveFavorite = async (id: number) => {
+    try {
+      const favorite = await AsyncStorage.getItem("@FAVORITE_CHARACTERS");
+      if (favorite !== null) {
+        const favoriteData = JSON.parse(favorite);
+        const newFavorite = favoriteData.filter(
+          (item: { id: number }) => item.id !== id
+        );
+        Alert.alert("Remove from favorite", "Are you sure?", [
+          {
+            text: "Cancel",
+            onPress: () => {
+              return null;
+            },
+            style: "cancel",
+          },
+          {
+            text: "YES",
+            onPress: async () => {
+              await AsyncStorage.setItem(
+                "@FAVORITE_CHARACTERS",
+                JSON.stringify(newFavorite)
+              );
+              MyToastShow("success", "Character removed from favorite", false);
+              await dispatch(getFavoriteCharacter());
+            },
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error(error);
+      MyToastShow("error", "Failed to remove character from favorite");
+    }
+  };
 
   return (
     <>
@@ -50,16 +74,14 @@ const Favorite = (props: FavoriteProps) => {
             data={favoriteCharacter}
             renderItem={({ item }) => (
               <>
-                <View
-                  style={{
-                    backgroundColor: "lightgrey",
-                    margin: 4,
-                    borderRadius: 8,
-                    padding: 4,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "48%",
-                  }}>
+                <View style={styles.favoriteArea}>
+                  <MaterialIcons
+                    name="delete"
+                    size={30}
+                    color="#577B8D"
+                    style={styles.removeIcon}
+                    onPress={() => handleRemoveFavorite(item.id)}
+                  />
                   <Image
                     source={{ uri: item.image }}
                     style={styles.charImage}
@@ -77,12 +99,7 @@ const Favorite = (props: FavoriteProps) => {
             )}
           />
         ) : (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
+          <View style={styles.notArea}>
             <MyText
               text="No favorite characters"
               verAlign="center"
