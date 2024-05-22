@@ -66,7 +66,7 @@ const Favorite = (props: FavoriteProps) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        {favoriteCharacter ? (
+        {favoriteCharacter && favoriteCharacter.length !== 0 ? (
           <FlatList
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
@@ -101,7 +101,7 @@ const Favorite = (props: FavoriteProps) => {
         ) : (
           <View style={styles.notArea}>
             <MyText
-              text="No favorite characters"
+              text="Favourite character not found !"
               verAlign="center"
               horAlign="center"
               size="large"
