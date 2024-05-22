@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MyInput, MyText } from "@/Components";
-import {
-  FlatList,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  SafeAreaView,
-  View,
-} from "react-native";
+import { FlatList, Image, Pressable, SafeAreaView, View } from "react-native";
 import { DetailProps } from "./Index";
 import { styles } from "./Detail.style";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -27,7 +19,7 @@ const Detail = (props: DetailProps) => {
     if (char) {
       await dispatch(setAllCharacter());
     }
-    const ids = characters.map((char: any) => char.split("/").pop());
+    const ids = characters.map((char: string) => char.split("/").pop());
     if (ids.length > 0) {
       ids.forEach((id: number) => {
         if (id) {
@@ -57,66 +49,59 @@ const Detail = (props: DetailProps) => {
 
   return (
     <SafeAreaView style={styles.body}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{
-          flex: 1,
-        }}>
-        <View style={{ flex: 1 }}>
-          <MaterialIcons
-            name="arrow-back-ios-new"
-            size={36}
-            onPress={() => navigation.goBack()}
-            color="black"
-            style={styles.icon}
-          />
-          <View style={styles.container}>
-            <Image
-              source={require("@/Assets/Images/season.jpg")}
-              style={styles.image}
-              resizeMode="cover"
-            />
-          </View>
-
-          <MyInput
-            onChange={handleFilter}
-            isSearch={true}
-            placeholder="Character Name"
-            value={search}
-            handleChange={(text) => {
-              setSearch(text);
-            }}
+      <View>
+        <MaterialIcons
+          name="arrow-back-ios-new"
+          size={36}
+          onPress={() => navigation.goBack()}
+          color="black"
+          style={styles.icon}
+        />
+        <View style={styles.container}>
+          <Image
+            source={require("@/Assets/Images/season.jpg")}
+            style={styles.image}
+            resizeMode="cover"
           />
         </View>
-        <View style={styles.charArea}>
-          <MyText text="Characters" size="header" type="bold" />
-          <FlatList
-            data={handleFilter()}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal={false}
-            showsVerticalScrollIndicator={true}
-            numColumns={3}
-            renderItem={({ item }) => (
-              <Pressable
-                style={styles.charInfo}
-                onPress={() =>
-                  navigation.navigate("CharacterInfo", {
-                    charId: item.id,
-                  })
-                }>
-                <Image
-                  source={{ uri: item.image }}
-                  style={styles.charImage}
-                  resizeMode="cover"
-                />
-                <MyText text={item?.name} size="text" type="bold" />
-                <MyText text={item?.status} size="text" type="regular" />
-                <MyText text={item?.species} size="small" type="regular" />
-              </Pressable>
-            )}
-          />
-        </View>
-      </KeyboardAvoidingView>
+        <MyInput
+          onChange={handleFilter}
+          isSearch={true}
+          placeholder="Character Name"
+          value={search}
+          handleChange={(text) => {
+            setSearch(text);
+          }}
+        />
+      </View>
+      <View style={styles.charArea}>
+        <MyText text="Characters" size="header" type="bold" />
+        <FlatList
+          data={handleFilter()}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal={false}
+          showsVerticalScrollIndicator={true}
+          numColumns={3}
+          renderItem={({ item }) => (
+            <Pressable
+              style={styles.charInfo}
+              onPress={() =>
+                navigation.navigate("CharacterInfo", {
+                  charId: item.id,
+                })
+              }>
+              <Image
+                source={{ uri: item.image }}
+                style={styles.charImage}
+                resizeMode="cover"
+              />
+              <MyText text={item?.name} size="text" type="bold" />
+              <MyText text={item?.status} size="text" type="regular" />
+              <MyText text={item?.species} size="small" type="regular" />
+            </Pressable>
+          )}
+        />
+      </View>
     </SafeAreaView>
   );
 };

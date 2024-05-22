@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextStyle } from "react-native";
 import AppTheme from "@/Theme/index";
 import { MyTextProps } from "./Index";
-
+import { styles } from "./MyText.style";
 const { font, colors } = AppTheme;
 
 const MyText = (props: MyTextProps) => {
@@ -43,8 +43,8 @@ const MyText = (props: MyTextProps) => {
       {multiText && (
         <Text
           numberOfLines={numberOfLines}
-          disabled={!onPress}
           onPress={onPress}
+          disabled={!onPress}
           style={{
             ...style,
             fontFamily: font.types[multiText.type],

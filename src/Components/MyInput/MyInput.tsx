@@ -21,7 +21,6 @@ const MyInput = (props: MyInputProps) => {
     isNumeric,
     keyboardType,
     disabled,
-    capitalizeFirstLetter,
     isSearch = false,
     onSubmitEditing,
   } = props;
@@ -32,9 +31,8 @@ const MyInput = (props: MyInputProps) => {
     };
   };
 
-  const handleChangeText = (text: string) => {
-    console.debug("text", text);
-    handleChange(text);
+  const handleChangeText = async (text: string) => {
+    await handleChange(text);
   };
 
   return (
@@ -51,7 +49,6 @@ const MyInput = (props: MyInputProps) => {
           returnKeyType={returnKeyType}
           multiline={multiline}
           maxLength={maxLength}
-          autoCapitalize={capitalizeFirstLetter ? "sentences" : "none"}
           onFocus={onFocus}
           onBlur={handleOnBlur}
           keyboardType={isNumeric ? "numeric" : keyboardType}

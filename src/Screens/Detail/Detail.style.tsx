@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 190,
+    height: 160,
     borderRadius: 8,
   },
   charArea: {
@@ -35,8 +35,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "34%",
-    height: 190,
-    // paddingBottom: 14,
+    height: 180,
   },
   charImage: {
     width: "90%",

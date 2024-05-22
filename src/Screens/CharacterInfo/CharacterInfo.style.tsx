@@ -4,7 +4,6 @@ import AppTheme from "@/Theme";
 const {
   colors,
   borders: { radius, width: bWidth },
-  device: { width, height, winWidth, winHeight },
 } = AppTheme;
 export const styles = StyleSheet.create({
   container: {

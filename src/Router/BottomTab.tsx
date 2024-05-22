@@ -20,21 +20,10 @@ const BottomTab = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        headerShown: false,
       })}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Favorite"
-        component={Favorite}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Favorite" component={Favorite} />
     </Tab.Navigator>
   );
 };
