@@ -1,3 +1,6 @@
+import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList } from "@/Navigation";
+
 export type SplashProps = {
-  navigation: any;
+  navigation: NativeStackScreenProps<RootStackParamList, "Splash">;
 };

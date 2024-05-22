@@ -47,6 +47,12 @@ const CharacterInfo = (props: CharacterInfoProps) => {
           "This character is already in favorites"
         );
       }
+      if (favoriteCharactersArray.length >= 10) {
+        return MyToastShow(
+          "Favorites Limit",
+          "You have exceeded the number of favourite additions, you must remove another character from the favourites! "
+        );
+      }
       favoriteCharactersArray.push({
         id: charId,
         name: singleCharacter?.name,
@@ -141,6 +147,7 @@ const CharacterInfo = (props: CharacterInfoProps) => {
             <MyText
               text="Gender "
               size="subheader"
+              type="bold"
               multiText={{
                 text: singleCharacter?.gender || "",
                 size: "subheader",

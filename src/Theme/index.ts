@@ -1,6 +1,7 @@
 import { Dimensions, Platform, ViewStyle, StyleProp } from "react-native";
 
 export const OS = Platform.OS === "android" ? "android" : "ios";
+export const flexStyles = (flex: number) => ({ flex: flex });
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -72,19 +73,6 @@ const AppTheme = {
       small: 8,
     },
   },
-
-  image: {
-    contain: {
-      resizeMode: "contain",
-    },
-    wrapper: <StyleProp<ViewStyle>>{
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  },
 };
-
-export const flexStyles = (flex: number) => ({ flex: flex });
 
 export default AppTheme;

@@ -4,6 +4,7 @@ import { FlatList, SafeAreaView, View } from "react-native";
 import { Card, MyInput } from "@/Components";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store";
+import { styles } from "./Home.style";
 
 const Home = (props: HomeProps) => {
   const { navigation } = props;
@@ -21,11 +22,7 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
-      <SafeAreaView
-        style={{
-          paddingTop: "8%",
-          paddingHorizontal: 8,
-        }}>
+      <SafeAreaView style={styles.body}>
         <MyInput
           onChange={handleFilter}
           isSearch={true}

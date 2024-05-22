@@ -14,7 +14,6 @@ export type MyInputProps = {
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
   disabled?: boolean;
   isTitle?: boolean;
-  capitalizeFirstLetter?: boolean;
   isSearch?: boolean;
   onSubmitEditing?: (...args: unknown[]) => unknown;
 };
