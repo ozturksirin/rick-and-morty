@@ -122,5 +122,5 @@ Gerekli paketleri yükleyin
 
   ## Lisans
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT]([https://choosealicense.com/licenses/mit/](https://github.com/ozturksirin/rick-and-morty?tab=MIT-1-ov-file))
  
