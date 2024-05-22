@@ -26,7 +26,6 @@ export const getFavoriteCharacter = createAsyncThunk(
       const favorite = await AsyncStorage.getItem("@FAVORITE_CHARACTERS");
       if (favorite) {
         const favoriteData: FavoriteCharacter[] = JSON.parse(favorite);
-        console.log("favoriteData", favoriteData);
         return favoriteData;
       } else {
         return [];

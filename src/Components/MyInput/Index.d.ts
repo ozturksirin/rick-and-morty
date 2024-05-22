@@ -3,7 +3,9 @@ export type MyInputProps = {
   handleChange: (text: string) => void;
   placeholder: string;
   isSecureText?: boolean;
-  onFocus?: () => void;
+  onBlur?: (...args: unknown[]) => unknown;
+  onFocus?: (...args: unknown[]) => unknown;
+  onChange: (...args: unknown[]) => unknown;
   handleOnBlur?: () => void;
   returnKeyType?: "done" | "next" | "go" | "search" | "send";
   multiline?: boolean;
@@ -14,4 +16,5 @@ export type MyInputProps = {
   isTitle?: boolean;
   capitalizeFirstLetter?: boolean;
   isSearch?: boolean;
+  onSubmitEditing?: (...args: unknown[]) => unknown;
 };

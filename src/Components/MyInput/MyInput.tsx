@@ -23,6 +23,7 @@ const MyInput = (props: MyInputProps) => {
     disabled,
     capitalizeFirstLetter,
     isSearch = false,
+    onSubmitEditing,
   } = props;
 
   const getStyle = () => {
@@ -54,6 +55,7 @@ const MyInput = (props: MyInputProps) => {
           onFocus={onFocus}
           onBlur={handleOnBlur}
           keyboardType={isNumeric ? "numeric" : keyboardType}
+          onSubmitEditing={onSubmitEditing}
         />
         {isSearch && (
           <Feather
