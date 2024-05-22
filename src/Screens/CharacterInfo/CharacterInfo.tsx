@@ -85,7 +85,7 @@ const CharacterInfo = (props: CharacterInfoProps) => {
           <MaterialIcons
             name="favorite"
             size={36}
-            color="black"
+            color="#E31B23"
             style={styles.addFavorite}
             onPress={() => handleFavorite()}
           />
